@@ -27,7 +27,7 @@ operation = {
     "DepthLimited" : depth_limit_search
 }
 root = Node(None, getProblemInstance(int(sys.argv[1]),int(sys.argv[2]),int(sys.argv[3])), 0, "", 0,[])
-root.carlistfiller();
+root.carlistfiller()
 show_maze(root)
 
 if(sys.argv[5] == "DepthLimited" and len(sys.argv) == 7):

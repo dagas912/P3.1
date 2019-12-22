@@ -20,4 +20,4 @@ def getProblemInstance(n, nCars, seed):
     for c in range(nCars):
         idx = random.randint(0,len(list)-1)
         maze[0][list[idx]] = c+1; list.pop(idx)
-    return maze;
+    return maze

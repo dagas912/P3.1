@@ -1,26 +1,18 @@
-from A_star import *
-from ShowMaze import *
 from Maze import *
-from Expand2 import *
-from A_star import *
+import A_star
 import sys
+from Node import Node
 
 #"AStar": a_star,
 
 
 size = 4
-ncars = 4
+ncars = 2
 seed = 2022
 
 maze = getProblemInstance(size,ncars,seed)
 root = Node(None, None,None,0,"",0, size)
-root.filler(maze);
-root.show_maze();
+root.filler(maze)
+root.show_maze()
 print("------------------------")
-"""
-result = root.expand()
-result = result[1].expand()
-for i in result:
-    print("----------------------------------")
-    i.show_maze()"""
-a_star(root)
+A_star.a_star(root)

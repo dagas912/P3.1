@@ -8,7 +8,7 @@ class Node:
         self.depth = depth
         self.action = action
         self.cost = cost
-        self.size = size;
+        self.size = size
 
     def filler(self,maze):
         self.walls = dict()
@@ -91,7 +91,7 @@ class Node:
             solution.append(original.action)
             original = original.parent
         solution.reverse()
-        return solution;
+        return solution
 
     def testgoal(self):
         returned = True
