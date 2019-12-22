@@ -6,9 +6,9 @@ from Node import Node
 #"AStar": a_star,
 
 
-size = 4
+size = 10
 ncars = 2
-seed = 2022
+seed = 2019
 
 maze = getProblemInstance(size,ncars,seed)
 root = Node(None, None,None,0,"",0, size)
