@@ -1,4 +1,5 @@
 from copy import deepcopy
+import random
 class Node:
 
     def __init__(self, parent, state,walls,depth, action, cost, size):
@@ -9,7 +10,11 @@ class Node:
         self.action = action
         self.cost = cost
         self.size = size
-        self.walls = walls
+
+
+#    @classmethod
+#    def rootNode(self,size,seed):
+#        return self(None, None,None,0,"",0, 5)
 
     def filler(self,maze):
         self.walls = dict()
@@ -26,6 +31,7 @@ class Node:
         print(self.state)
         print(self.walls)
         return
+
 
     def show_maze(self):
         aux = [[0 for i in range(self.size)] for j in range(self.size)]
@@ -100,9 +106,74 @@ class Node:
             returned = i[0] == self.size - 1 and returned
 
         return returned
+
+    def generateNeighbours(self):
+        result = []
+        #for car in range(len(self.state)):
+        #  result += self.neighbourCar(car)
+        for wall in self.walls.keys():
+            result += self.neigbourWalls(wall)
+        return result
+    """
+    def neighbourCar(self,car):
+        result = []
+        x = self.state[car][0]
+        y = self.state[car][1]
+        cars = self.state
+        if y != 0 and (x, y - 1) not in self.walls and (x, y - 1) not in cars:
+            auxcars = deepcopy(self.state)
+            auxcars[car] = (x, y - 1)
+            auxwalls = deepcopy(self.walls)
+
+            result.append(
+                Node(None, auxcars, auxwalls, 0, "", 0, self.size))
+        if y != (self.size - 1) and (x, y + 1) not in self.walls and (x, y + 1) not in cars:
+            auxcars = deepcopy(self.state)
+            auxcars[car] = (x, y + 1)
+            auxwalls = deepcopy(self.walls)
+            result.append(
+                Node(None, auxcars, auxwalls, 0, "", 0, self.size))
+        return result"""
+
+    def neigbourWalls(self,wall):
+        x = wall[0]
+        y = wall[1]
+        result = []
+        if y != 0 and (x, y - 1) not in self.walls:
+            auxcars = deepcopy(self.state)
+            auxwalls = deepcopy(self.walls)
+            auxwalls.pop(wall)
+            auxwalls[(wall[0]),wall[1] - 1] = -1
+            result.append(Node(None, auxcars, auxwalls, 0, "", 0, self.size))
+        if y != (self.size - 1) and (x, y + 1) not in self.walls:
+            auxcars = deepcopy(self.state)
+            auxwalls = deepcopy(self.walls)
+            auxwalls.pop(wall)
+            auxwalls[(wall[0]),wall[1] + 1] = -1
+            result.append(Node(None, auxcars, auxwalls, 0, "", 0, self.size))
+        if x != 1 and (x - 1, y) not in self.walls:
+            auxcars = deepcopy(self.state)
+            auxwalls = deepcopy(self.walls)
+            auxwalls.pop(wall)
+            auxwalls[(wall[0]-1),wall[1]] = -1
+            result.append(Node(None, auxcars, auxwalls, 0, "", 0, self.size))
+        if x != (self.size - 2) and (x + 1, y) not in self.walls:
+            auxcars = deepcopy(self.state)
+            auxwalls = deepcopy(self.walls)
+            auxwalls.pop(wall)
+            auxwalls[(wall[0] + 1),wall[1]] = -1
+            result.append(Node(None, auxcars, auxwalls, 0, "", 0, self.size))
+        while True:
+            new = (random.randint(1,self.size -2), random.randint(0,self.size -1))
+            if new not in self.walls:
+                auxcars = deepcopy(self.state)
+                auxwalls = deepcopy(self.walls)
+                auxwalls[new] = -1
+                result.append(Node(None, auxcars, auxwalls, 0, "", 0, self.size))
+                break
+
+        return result
     def __hash__(self):
         return hash(tuple(self.state))
-
-
     __slots__ = ['parent', 'state',"walls" ,'depth', 'action', 'cost','size']
 

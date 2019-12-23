@@ -15,20 +15,20 @@ def a_star(root):
             if node.testgoal():
                 #(node)
                 total_time = time.time() - start_time
-                recovered = node.recoverpath()
-                print("Solution length: ", len(recovered))
-                print("Solution cost: ", node.cost)
-                print("Solution path: ", recovered)
-                print()
-                print("Generated nodes: ", generated)
-                print("Expanded nodes: ", expanded)
-                print("--- %s seconds ---" % total_time)
-                return node.cost #[len(recovered),node.cost,generated,expanded,total_time]
+                #recovered = node.recoverpath()
+                #print("Solution length: ", len(recovered))
+                #print("Solution cost: ", node.cost)
+                #print("Solution path: ", recovered)
+                #print()
+                #print("Generated nodes: ", generated)
+                #print("Expanded nodes: ", expanded)
+                #print("--- %s seconds ---" % total_time)
+                return generated #[len(recovered),node.cost,generated,expanded,total_time]
             sucessors = node.expand()
             expanded += 1
             for suc in sucessors:
                 open.put((suc.cost + heuristic(suc), generated,suc))
                 generated += 1
             explored[node.__hash__()] = node.state
-    print("Something went wrong")
+    #print("Something went wrong")
     return -1
