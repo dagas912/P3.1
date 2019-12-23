@@ -14,7 +14,7 @@ class labyrinth:
     def neighbour(self):
         result = []
         for wall in range(len(self.walls)):
-            result = result + self.expand(wall)
+            result += self.expand(wall)
         while True:
             new = (random.randint(1,self.size -2), random.randint(0,self.size -1))
             if new not in self.walls:

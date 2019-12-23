@@ -1,4 +1,4 @@
-from Heuristic import *
+from Heuristic import heuristic
 import queue
 import time
 
@@ -23,7 +23,7 @@ def a_star(root):
                 print("Generated nodes: ", generated)
                 print("Expanded nodes: ", expanded)
                 print("--- %s seconds ---" % total_time)
-                return [len(recovered),node.cost,generated,expanded,total_time]
+                return node.cost #[len(recovered),node.cost,generated,expanded,total_time]
             sucessors = node.expand()
             expanded += 1
             for suc in sucessors:
@@ -31,4 +31,4 @@ def a_star(root):
                 generated += 1
             explored[node.__hash__()] = node.state
     print("Something went wrong")
-    return [-1,-1,-1,-1,-1]
+    return -1

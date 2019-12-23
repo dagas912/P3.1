@@ -6,11 +6,10 @@ from Node import Node
 #"AStar": a_star,
 
 
-size = 10
-ncars = 2
+size = 15
 seed = 2019
 
-maze = getProblemInstance(size,ncars,seed)
+maze = getProblemInstance(size,seed)
 root = Node(None, None,None,0,"",0, size)
 root.filler(maze)
 root.show_maze()

@@ -9,6 +9,7 @@ class Node:
         self.action = action
         self.cost = cost
         self.size = size
+        self.walls = walls
 
     def filler(self,maze):
         self.walls = dict()
