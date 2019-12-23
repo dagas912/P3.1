@@ -1,15 +1,30 @@
-import random
+"""import random
 from copy import deepcopy
+from Node import Node
 
 class labyrinth:
-    def __init__(self,walls,size,seed):
+    def __init__(self,walls,size,seed,state):
         self.size = size
         self.walls = walls
         self.seed = seed
-
+        self.state = state
     @classmethod
-    def initialState(self,size,seed):
-        return self([],size,random.seed(seed))
+    def initialState(self,maze,seed):
+        walls = []
+        state = []
+        size = len(maze)
+        for i in range(size):
+            for j in range(size):
+                if maze > 0:
+
+        return self([],size,random.seed(seed),state)
+
+    def generateNode(self):
+        state = [(0,0),(0,self.size-1)]
+        nodeWalls = dict();
+        for wall in self.walls:
+            nodeWalls[wall] = -1
+        return Node(None,state,nodeWalls,0,"",0, self.size)
 
     def neighbour(self):
         result = []
@@ -22,6 +37,7 @@ class labyrinth:
                 auxWalls.append(new)
                 result.append(labyrinth(auxWalls,self.size,self.seed))
                 break
+
 
 
 
@@ -68,3 +84,4 @@ class labyrinth:
             result.append(labyrinth(auxwalls,self.size,self.seed))
 
         return result
+    """

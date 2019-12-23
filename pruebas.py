@@ -6,7 +6,7 @@ from Node import Node
 #"AStar": a_star,
 
 
-size = 15
+size = 5
 seed = 2019
 
 maze = getProblemInstance(size,seed)
@@ -14,4 +14,6 @@ root = Node(None, None,None,0,"",0, size)
 root.filler(maze)
 root.show_maze()
 print("------------------------")
-A_star.a_star(root)
+for lel in root.generateNeighbours():
+    print("----------------------")
+    lel.show_maze()
