@@ -5,17 +5,18 @@ from copy import deepcopy
 from walls import labyrinth
 import sys
 
-def hillClimbing(initialSolution: Node): 
+def hillClimbing(initialSolution: Node, maze: labyrinth): 
     currentSolution = initialSolution
     currentScore = evaluate(initialSolution)
     improves = True
     while improves:
         improves = False
-        neighbors = labyrinth.neighbour(currentSolution)
+        neighbors = labyrinth.neighbour(maze)
         for neighbor in neighbors:
-            score = evaluate(neighbor)
+            nodeNeighbor = Node(None, None, neighbor, 0, "", 0, initialSolution.size)
+            score = evaluate(nodeNeighbor)
             if score > currentScore:
-                currentSolution = neighbor
+                currentSolution = nodeNeighbor
                 currentScore = score
                 improves = True
     return currentSolution
@@ -23,8 +24,8 @@ def hillClimbing(initialSolution: Node):
 
 
 if __name__ == "__main__":
-    maze = getProblemInstance(5,2019)
+    maze = labyrinth.initialState(5,2019)
     root = Node(None, None,None,0,"",0, 5)
-    root.filler(maze)
-    hillClimbing(root)
+    root.filler(maze.generateMaze())
+    hillClimbing(root,maze)
     #hillClimbing(sys.argv[1:])

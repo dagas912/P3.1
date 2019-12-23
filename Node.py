@@ -103,5 +103,6 @@ class Node:
     def __hash__(self):
         return hash(tuple(self.state))
 
+
     __slots__ = ['parent', 'state',"walls" ,'depth', 'action', 'cost','size']
 
