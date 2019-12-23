@@ -113,7 +113,7 @@ class Node:
         #  result += self.neighbourCar(car)
         for wall in self.walls.keys():
             result += self.neigbourWalls(wall)
-        return result
+        return result if len(result)>0 else [Node(None,self.state,{(1,0):-1},0,"",0,self.size)]
     """
     def neighbourCar(self,car):
         result = []

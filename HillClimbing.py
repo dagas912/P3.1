@@ -22,7 +22,7 @@ def hillClimbing(initialSolution: Node):
                 currentSolution = neighbor
                 currentScore = score
                 improves = True
-    print("Score: {}".format(score))
+    print("Score: {}".format(currentScore))
     print("Time: {}".format(time()-startTime))
     return currentSolution
 
@@ -30,8 +30,8 @@ def hillClimbing(initialSolution: Node):
 
 if __name__ == "__main__":
     size = 10
-    seed=2019
-    nWalls = 25
+    seed=2000
+    nWalls = 0
     maze = getProblemInstance(size,seed,nWalls)
     root = Node(None, None, None, 0, "", 0, size)
     root.filler(maze)
