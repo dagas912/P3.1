@@ -8,7 +8,7 @@ def getProblemInstance(n, seed, nWallsParam):
     maze = [[0 for i in range(n)] for j in range(n)]
     random.seed(seed)
     # placing walls
-    nWalls = int(n * (n-2) * 0.4) if nWallsParam<0 else nWallsParam
+    nWalls = int(n * (n-2) * 0.2) if nWallsParam<0 else nWallsParam
         
     for i in range(nWalls):
         maze[random.randint(0,n-3) + 1][random.randint(0,n-1)] = -1

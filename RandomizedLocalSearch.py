@@ -9,7 +9,7 @@ def randomizedLocalSearch(argv):
     solution = [None,-1]
     maxIterations = int(argv[3])
     for iteration in range(maxIterations):
-        maze=getProblemInstance(int(argv[0]),int(argv[1]),int(argv[2])+iteration*randint(1,4))
+        maze=getProblemInstance(int(argv[0]),int(argv[1]),int(argv[2])+iteration*randint(1,2))
 
         x = Node(None, None, None, 0, "", 0, int(argv[0]))
         x.filler(maze)
