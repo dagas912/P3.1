@@ -3,7 +3,7 @@ from Population import Population
 
 
 def GeneticAlgorithm(size: int, seed: int, populationSize: int, generations: int, probCoross: float, mutationProb: float):
-    P = Population()  # Creates candidates individuals. Generate
+    P = Population(size, seed, populationSize, generations, probCoross, mutationProb)  # Creates candidates individuals. Generate
     stopCondition = False
     while not stopCondition:
         _P = P.selectPopulation()  # Select some individuals by score
