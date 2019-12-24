@@ -7,6 +7,7 @@ def GeneticAlgorithm(size: int, seed: int, populationSize: int, generations: int
     stopCondition = False
     while not stopCondition:
         _P = P.selectPopulation()  # Select some individuals by score
+        _P = Population(size, seed, populationSize, generations, probCoross, mutationProb,_P)
         _P.crossover()  # Crosses pairs of selected individuals
         _P.mutation()  # Mutates the crossed individuals
         _P.reEvaluate()  # Obtains the score of the new individuals
