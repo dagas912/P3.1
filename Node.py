@@ -163,7 +163,7 @@ class Node:
             auxwalls.pop(wall)
             auxwalls[(wall[0] + 1),wall[1]] = -1
             result.append(Node(None, auxcars, auxwalls, 0, "", 0, self.size))
-        while True:
+        for _ in range(len(self.walls)*2+1):
             new = (random.randint(1,self.size -2), random.randint(0,self.size -1))
             if new not in self.walls:
                 auxcars = deepcopy(self.state)

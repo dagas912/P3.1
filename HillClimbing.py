@@ -14,24 +14,23 @@ def hillClimbing(initialSolution: Node):
         improves = False
         neighbors = currentSolution.generateNeighbours()
         for neighbor in neighbors:
-            nodeNeighbor = neighbor
-            score = evaluate(nodeNeighbor)
+            score = evaluate(neighbor)
             if score > currentScore:
-                nodeNeighbor.show_maze()
+                neighbor.show_maze()
                 print("")
                 currentSolution = neighbor
                 currentScore = score
                 improves = True
     print("Score: {}".format(currentScore))
     print("Time: {}".format(time()-startTime))
-    return currentSolution
+    return [currentSolution,currentScore]
 
 
 
 if __name__ == "__main__":
-    size = 10
-    seed=2000
-    nWalls = 0
+    size = int(sys.argv[1])
+    seed=int(sys.argv[2])
+    nWalls = int(sys.argv[3])
     maze = getProblemInstance(size,seed,nWalls)
     root = Node(None, None, None, 0, "", 0, size)
     root.filler(maze)
@@ -39,5 +38,4 @@ if __name__ == "__main__":
     print("\n")
     final = hillClimbing(root)
     print("")
-    final.show_maze()
-    #hillClimbing(sys.argv[1:])
+    final[0].show_maze()
