@@ -15,4 +15,4 @@ def GeneticAlgorithm(size: int, seed: int, populationSize: int, generations: int
 
 
 if __name__ == "__main__":
-    GeneticAlgorithm(5, 2019, 100, 50, 1.0, 0.01)
+    GeneticAlgorithm(5, 2019, 10, 50, 1.0, 0.01)
