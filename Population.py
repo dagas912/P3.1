@@ -3,6 +3,7 @@ from A_star import a_star as evaluate
 from Node import Node
 from random import random
 from random import choices
+from random import randint
 
 
 class Population:
@@ -40,7 +41,7 @@ class Population:
 
     def reEvaluate(self):  # Execute again the A* To update scores
         for index, elem in enumerate(self.individuals):
-            root = Node(None, None, elem[1], 0, "", 0, size)
+            root = Node(None, None, elem[1], 0, "", 0, self.size)
             self.individuals[index][0] = evaluate(root)
 
     def crossover(self):  # Crosses pairs of selected individuals
@@ -53,7 +54,18 @@ class Population:
             tempIndividuals.append([None, indv1])
         self.individuals = tempIndividuals
 
-    #def mutation(self):  # Mutates the crossed individuals
+    def mutation(self):  # Mutates the crossed individuals
+        score, walls = map(list, zip(*self.individuals))
+        tempIndividuals = []
+        for score, indv1 in self.individuals:
+            y = randint(0, self.size)
+            x = randint(1, self.size-1)
+            if indv1.get((x,y)) != None: #El muro exist
+                indv1.pop((x,y))
+            else: #El muro no existe
+                indv1.update({(x,y):-1}) 
 
+            tempIndividuals.append([None, indv1])
+        self.individuals = tempIndividuals
 
-    #def combine(self, prePopulation: Population): # Form the new population (Replace All or Takes the best)
+    # def combine(self, prePopulation: Population): # Form the new population (Replace All or Takes the best)
