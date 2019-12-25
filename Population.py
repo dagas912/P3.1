@@ -15,7 +15,7 @@ class Population:
                 maze = getProblemInstance(size,seed,i)
                 root = Node(None, None, None, 0, "", 0, size)
                 root.filler(maze)
-                self.individuals.append([evaluate(root),maze]) #individuals almacena un par de maze con su score de toda la poblacion en su dicionario (Creo que una lista serviria igual)
+                self.individuals.append([evaluate(root),root.walls]) #individuals almacena un par de maze con su score de toda la poblacion en su dicionario (Creo que una lista serviria igual)
         else:
             self.individuals = individuals
 
@@ -29,18 +29,22 @@ class Population:
 
     def selectPopulation(self): # Select some individuals by score
         res1, res2 = map(list, zip(*self.individuals)) 
-        return choices(res2,res1,k=self.populationSize) # TODO Tiene que devolver a parte del laberinto seleccionado su score. Parece que va a tocar hacer algo mas a mano (hacer choices pero con un elemento, asi si se podra actualizar)
+        result = []
+        for _ in self.individuals:
+            choosen = choices(res2,res1)
+            index = res2.index(choosen[0])
+            result.append([res1[index],choosen[0]])
+        return result
         
     def reEvaluate(self): # Execute again the A* To update scores
         for index,elem in enumerate(self.individuals):
-            root = Node(None, None, None, 0, "", 0, size)
-            root.filler(elem[1])
+            root = Node(None, None, elem[1], 0, "", 0, size)
             self.individuals[index][0]=evaluate(root)
     
-    '''def crossover(self): # Crosses pairs of selected individuals
+    #def crossover(self): # Crosses pairs of selected individuals
 
 
-    def mutation(self):  # Mutates the crossed individuals
+    '''def mutation(self):  # Mutates the crossed individuals
 
 
     def combine(self, prePopulation: Population): # Form the new population (Replace All or Takes the best)'''
