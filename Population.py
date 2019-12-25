@@ -37,7 +37,7 @@ class Population:
             choosen = choices(res2, res1)
             index = res2.index(choosen[0])
             result.append([res1[index], choosen[0]])
-        return result
+        return Population(self.size, self.seed, self.populationSize, self.generations, self.probCross, self.mutationProb,result)
 
     def reEvaluate(self):  # Execute again the A* To update scores
         for index, elem in enumerate(self.individuals):
@@ -59,8 +59,8 @@ class Population:
         tempIndividuals = []
         for score, indv1 in self.individuals:
             if random() <= self.mutationProb:
-                y = randint(0, self.size)
-                x = randint(1, self.size-1)
+                y = randint(0, self.size-1)
+                x = randint(1, self.size-2)
                 if indv1.get((x,y)) != None: #El muro exist
                     indv1.pop((x,y))
                 else: #El muro no existe
@@ -72,5 +72,6 @@ class Population:
     def combine(self, prePopulation): # Form the new population (Replace All or Takes the best)
         aux = prePopulation.individuals + self.individuals
         aux = sorted(aux, key=lambda x: x[0],reverse=True)
-        return aux[:int(len(aux)/2)]
+        self.individuals = aux[:int(len(aux)/2)]
+        return self
         
