@@ -69,5 +69,8 @@ class Population:
             tempIndividuals.append([None, indv1])
         self.individuals = tempIndividuals
 
-    def combine(self, prePopulation: Population): # Form the new population (Replace All or Takes the best)
-
+    def combine(self, prePopulation): # Form the new population (Replace All or Takes the best)
+        aux = prePopulation.individuals + self.individuals
+        aux = sorted(aux, key=lambda x: x[0],reverse=True)
+        return aux[:int(len(aux)/2)]
+        
