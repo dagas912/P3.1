@@ -22,7 +22,7 @@ def randomizedLocalSearch(argv):
 
 if __name__ == "__main__":
     startTime = time()
-    sol=randomizedLocalSearch(['5','2019','0','5'])
+    sol=randomizedLocalSearch(['6','2019','0','5'])
     #sol=randomizedLocalSearch(sys.argv[1:])
     print("\nFinal maze and score:" )
     sol[0].show_maze()

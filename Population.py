@@ -74,4 +74,7 @@ class Population:
         aux = sorted(aux, key=lambda x: x[0],reverse=True)
         self.individuals = aux[:int(len(aux)/2)]
         return self
-        
+    def copy(self):
+        aux = list(map(list,self.individuals))
+        result = self(self.size, self.seed, self.populationSize, self.generations, self.probCoross, self.mutationProb,aux)
+        return result
