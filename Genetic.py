@@ -4,8 +4,7 @@ from Population import Population
 
 def GeneticAlgorithm(size: int, seed: int, populationSize: int, generations: int, probCoross: float, mutationProb: float):
     P = Population(size, seed, populationSize, generations, probCoross, mutationProb)  # Creates candidates individuals. Generate
-    stopCondition = False
-    while not stopCondition:
+    for _ in range(generations):
         _P = P.selectPopulation()  # Select some individuals by score
         _P = Population(size, seed, populationSize, generations, probCoross, mutationProb,_P)
         _P.crossover()  # Crosses pairs of selected individuals

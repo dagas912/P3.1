@@ -23,7 +23,7 @@ def a_star(root):
                 #print("Generated nodes: ", generated)
                 #print("Expanded nodes: ", expanded)
                 #print("--- %s seconds ---" % total_time)
-                return generated #[len(recovered),node.cost,generated,expanded,total_time]
+                return expanded #[len(recovered),node.cost,generated,expanded,total_time]
             sucessors = node.expand()
             expanded += 1
             for suc in sucessors:

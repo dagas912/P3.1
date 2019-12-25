@@ -3,6 +3,7 @@ from A_star import a_star as evaluate
 from Node import Node
 from random import randrange
 from random import choices
+from copy import deepcopy
 
 class Population:
 
@@ -41,8 +42,15 @@ class Population:
             root = Node(None, None, elem[1], 0, "", 0, size)
             self.individuals[index][0]=evaluate(root)
     
-    #def crossover(self): # Crosses pairs of selected individuals
-
+    def crossover(self): # Crosses pairs of selected individuals
+        score, walls = map(list, zip(*self.individuals)) 
+        tempIndividuals = []
+        for _ in self.individuals:
+            indv1, indv2 = choices(walls,k=2)
+            indv1.update(indv2)
+            tempIndividuals.append([None,indv1])
+        self.individuals=tempIndividuals
+        
 
     '''def mutation(self):  # Mutates the crossed individuals
 
