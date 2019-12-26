@@ -19,7 +19,7 @@ def GeneticAlgorithm(size: int, seed: int, populationSize: int, generations: int
 
 if __name__ == "__main__":
     startTime = time()
-    size = 5
+    size = 10
     seed = 2020
     nPopulation = 100
     generations = 50

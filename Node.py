@@ -28,13 +28,13 @@ class Node:
                     self.state[maze[i][j] - 1] = (i,j)
                 elif maze[i][j] == -1:
                     self.walls[(i,j)] = -1
-        print(self.state)
-        print(self.walls)
+        #print(self.state)
+        #print(self.walls)
         return
 
 
     def show_maze(self):
-        aux = [[0 for i in range(self.size)] for j in range(self.size)]
+        aux = [["·" for i in range(self.size)] for j in range(self.size)]
         count = 1
         for i in self.state:
             aux[i[0]][i[1]] = count

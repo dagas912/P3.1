@@ -49,9 +49,13 @@ class Population:
         tempIndividuals = []
         for score, indv1 in self.individuals:
             if random() <= self.probCross:
-                indv2 = choices(walls)[0]
-                indv1.update(indv2)
-            tempIndividuals.append([None, indv1])
+                indv2 = list(choices(walls)[0].keys())
+                indv1 = list(indv1.keys())
+                n = int(len(indv1)*random())
+                indv = indv1[n:] + indv2[:n]
+                indv =  dict.fromkeys(indv,-1)
+
+            tempIndividuals.append([None, indv])
         self.individuals = tempIndividuals
 
     def mutation(self):  # Mutates the crossed individuals
