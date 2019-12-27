@@ -19,12 +19,12 @@ def GeneticAlgorithm(size: int, seed: int, populationSize: int, generations: int
 
 if __name__ == "__main__":
     startTime = time()
-    size = 10
-    seed = 2020
+    size = 5
+    seed = 2019
     nPopulation = 100
-    generations = 50
-    probCoross = 1.0
-    mutationProb = 0.01
+    generations = 100
+    probCoross = 0.9
+    mutationProb = 0.3
     sol=GeneticAlgorithm(size, seed, nPopulation, generations, probCoross, mutationProb)
     print("\nScore: {}".format(sol[0]))
     print("Maze: ")

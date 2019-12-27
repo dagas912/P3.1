@@ -54,8 +54,9 @@ class Population:
                 n = int(len(indv1)*random())
                 indv = indv1[n:] + indv2[:n]
                 indv =  dict.fromkeys(indv,-1)
-
-            tempIndividuals.append([None, indv])
+                tempIndividuals.append([None, indv])
+            else:
+                tempIndividuals.append([None, indv1])
         self.individuals = tempIndividuals
 
     def mutation(self):  # Mutates the crossed individuals
