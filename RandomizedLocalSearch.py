@@ -5,26 +5,18 @@ from Node import Node
 from random import randint
 from time import time
 
-def randomizedLocalSearch(argv):
-    solution = [None,-1]
-    maxIterations = int(argv[3])
+def randomizedLocalSearch(size, seed, nWalls, maxIterations):
+    startTime=time()
+    solution = [-1,None]
     for iteration in range(maxIterations):
-        maze=getProblemInstance(int(argv[0]),int(argv[1]),int(argv[2])+iteration*randint(1,2))
+        maze=getProblemInstance(size,seed,nWalls+iteration*randint(1,2))
 
-        x = Node(None, None, None, 0, "", 0, int(argv[0]))
+        x = Node(None, None, None, 0, "", 0, size)
         x.filler(maze)
 
         y=hillClimbing(x)
-        if y[1] > solution[1]:
+        if y[0] > solution[0]:
             solution=y
-    return solution
+    return solution+[time()-startTime]
 
 
-if __name__ == "__main__":
-    startTime = time()
-    sol=randomizedLocalSearch(['6','2019','0','5'])
-    #sol=randomizedLocalSearch(sys.argv[1:])
-    print("\nFinal maze and score:" )
-    sol[0].show_maze()
-    print(sol[1])
-    print("\nTime: {} sec".format(time()-startTime))

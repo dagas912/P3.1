@@ -6,6 +6,7 @@ from copy import deepcopy
 
 
 def GeneticAlgorithm(size: int, seed: int, populationSize: int, generations: int, probCoross: float, mutationProb: float):
+    startTime = time()
     P = Population(size, seed, populationSize, generations, probCoross, mutationProb)  # Creates candidates individuals. Generate
     for _ in range(generations):
         _P = deepcopy(P.selectPopulation())  # Select some individuals by score
@@ -14,19 +15,5 @@ def GeneticAlgorithm(size: int, seed: int, populationSize: int, generations: int
         _P.mutation()  # Mutates the crossed individuals
         _P.reEvaluate()  # Obtains the score of the new individuals
         P = _P.combine(P) # Form the new population (Replace All or Takes the best)
-    return sorted(P.individuals, key=lambda x: x[0],reverse=True)[0]
+    return sorted(P.individuals, key=lambda x: x[0],reverse=True)[0]+[time()-startTime]
 
-
-if __name__ == "__main__":
-    startTime = time()
-    size = 5
-    seed = 2019
-    nPopulation = 100
-    generations = 100
-    probCoross = 0.9
-    mutationProb = 0.3
-    sol=GeneticAlgorithm(size, seed, nPopulation, generations, probCoross, mutationProb)
-    print("\nScore: {}".format(sol[0]))
-    print("Maze: ")
-    Node(None, [(0,0),(0,size-1)], sol[1], 0, "", 0, size).show_maze()
-    print("Time: {}".format(time()-startTime))
