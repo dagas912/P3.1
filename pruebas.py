@@ -2,25 +2,21 @@ from Maze import *
 import A_star
 import sys
 from Node import Node
+from time import time
 
 #"AStar": a_star,
 
 
-size = 10
+size = 30
 seed = 2019
-nWalls = -1
+nWalls = 150
 
 maze = getProblemInstance(size,seed,nWalls)
-root = Node(None, None,None,0,"",0, size)
-root.filler(maze)
-root.show_maze()
-print("------------------------")
-for lel in root.generateNeighbours():
-    print("----------------------")
-    lel.show_maze()
 
+startTime=time()
 root = Node(None, None, None, 0, "", 0, size)
 root.filler(maze)
 root.show_maze()
-A_star.a_star(root)
+print(A_star.a_star(root))
+print("Time: {}".format(time()-startTime))
 
