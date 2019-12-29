@@ -39,6 +39,17 @@ class Population:
             result.append([res1[index], choosen[0]])
         return Population(self.size, self.seed, self.populationSize, self.generations, self.probCross, self.mutationProb,result)
 
+    def selectPopulationRanked(self):  # Select some individuals by score
+        res1, res2 = map(list, zip(*self.individuals))
+        total = sum(i for i in range(1, len(res2) + 1))
+        res1 = [(len(res2) - i + 1)/ total for i in range(1,len(res2) + 1)]
+        result = []
+        for _ in self.individuals:
+            choosen = choices(res2, res1)
+            index = res2.index(choosen[0])
+            result.append([res1[index], choosen[0]])
+        return Population(self.size, self.seed, self.populationSize, self.generations, self.probCross, self.mutationProb,result)
+
     def reEvaluate(self):  # Execute again the A* To update scores
         for index, elem in enumerate(self.individuals):
             root = Node(None, [(0,0),(0,self.size-1)], elem[1], 0, "", 0, self.size)
@@ -55,6 +66,43 @@ class Population:
                 indv = indv1[n:] + indv2[:n]
                 indv =  dict.fromkeys(indv,-1)
                 tempIndividuals.append([None, indv])
+            else:
+                tempIndividuals.append([None, indv1])
+        self.individuals = tempIndividuals
+
+    def crossoverOne(self):  # Crosses pairs of selected individuals
+        score, walls = map(list, zip(*self.individuals))
+        tempIndividuals = []
+        for score, indv1 in self.individuals:
+            if random() <= self.probCross:
+                indv2 = list(choices(walls)[0].keys())
+                indv1 = list(indv1.keys())
+                n = int(len(indv1) * random())
+                child1 = indv1[n:] + indv2[:n]
+                child2 = indv2[n:] + indv1[:n]
+                child1 = dict.fromkeys(child1, -1)
+                child2 = dict.fromkeys(child2, -1)
+                tempIndividuals.append([None, child1])
+                tempIndividuals.append([None, child2])
+            else:
+                tempIndividuals.append([None, indv1])
+        self.individuals = tempIndividuals
+
+    def crossoverTwo(self):  # Crosses pairs of selected individuals
+        score, walls = map(list, zip(*self.individuals))
+        tempIndividuals = []
+        for score, indv1 in self.individuals:
+            if random() <= self.probCross:
+                indv2 = list(choices(walls)[0].keys())
+                indv1 = list(indv1.keys())
+                n = int(len(indv1) * random())
+                n2 = int((int(len(indv1) - n) * random()))
+                child1 = indv1[:n] + indv2[n:n2] + indv1[n2:]
+                child2 = indv2[:n] + indv1[n:n2] + indv2[n2:]
+                child1 = dict.fromkeys(child1, -1)
+                child2 = dict.fromkeys(child2, -1)
+                tempIndividuals.append([None, child1])
+                tempIndividuals.append([None, child2])
             else:
                 tempIndividuals.append([None, indv1])
         self.individuals = tempIndividuals
@@ -77,7 +125,7 @@ class Population:
     def combine(self, prePopulation): # Form the new population (Replace All or Takes the best)
         aux = prePopulation.individuals + self.individuals
         aux = sorted(aux, key=lambda x: x[0],reverse=True)
-        self.individuals = aux[:int(len(aux)/2)]
+        self.individuals = aux[:self.populationSize]
         return self
     def copy(self):
         aux = list(map(list,self.individuals))
