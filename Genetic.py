@@ -8,8 +8,10 @@ from copy import deepcopy
 def GeneticAlgorithm(size: int, seed: int, populationSize: int, generations: int, probCoross: float, mutationProb: float):
     startTime = time()
     P = Population(size, seed, populationSize, generations, probCoross, mutationProb)  # Creates candidates individuals. Generate
-    for _ in range(generations):
+    for i in range(generations):
+        print("\nGen {}".format(i))
         _P = deepcopy(P.selectPopulation())  # Select some individuals by score
+        print("PopulationSelected")
         #_P = Population(size, seed, populationSize, generations, probCoross, mutationProb,_P)
         _P.crossoverTwo()  # Crosses pairs of selected individuals
         _P.mutation()  # Mutates the crossed individuals
