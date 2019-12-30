@@ -9,9 +9,16 @@ def getProblemInstance(n, seed, nWallsParam):
     random.seed(seed)
     # placing walls
     nWalls = int(n * (n-2) * 0.2) if nWallsParam<0 else nWallsParam
-        
-    for i in range(nWalls):
-        maze[random.randint(0,n-3) + 1][random.randint(0,n-1)] = -1
+    i=0
+    while i < nWalls:
+        x=random.randint(0,n-3) + 1
+        y=random.randint(0,n-1)
+        if maze[x][y]==0:
+            maze[x][y] = -1
+        else: 
+            0
+            i-=1
+        i +=1 
     
     maze[0][0] = 1
     maze[0][-1] = 2 
