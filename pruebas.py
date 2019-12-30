@@ -7,9 +7,9 @@ from time import time
 #"AStar": a_star,
 
 
-size = 20
+size = 10
 seed = 2020
-nWalls = -1
+nWalls = 30
 
 startTime=time()
 maze = getProblemInstance(size,seed,nWalls)

@@ -1,6 +1,4 @@
-from copy import deepcopy
-from random import choices
-import random
+
 class Node:
 
     def __init__(self, parent, state,walls,depth, action, cost, size):
@@ -16,7 +14,7 @@ class Node:
 #    @classmethod
 #    def rootNode(self,size,seed):
 #        return self(None, None,None,0,"",0, 5)
-
+    
     def filler(self,maze):
         self.walls = dict()
         self.state = []
@@ -33,7 +31,7 @@ class Node:
         #print(self.walls)
         return
 
-
+    
     def show_maze(self):
         aux = [["·" for i in range(self.size)] for j in range(self.size)]
         count = 1
@@ -50,6 +48,7 @@ class Node:
             print(row)
         return
 
+    
     def movement(self,car):
         x = self.state[car][0]
         y = self.state[car][1]
@@ -93,6 +92,7 @@ class Node:
                 Node(self, auxcars, localwalls, localdepth + 1,  "{}: down".format(str(car + 1)), localcost + 1, localsize))
         return result
 
+    
     def expand(self):
         result = []
 
@@ -105,6 +105,7 @@ class Node:
                 result_append(generated)
         return result
 
+    
     def recoverpath(self):
         original = self
         solution = []
@@ -114,6 +115,7 @@ class Node:
         solution.reverse()
         return solution
 
+    
     def testgoal(self):
         returned = True
 
@@ -125,7 +127,11 @@ class Node:
 
         return returned
 
+    
     def generateNeighbours(self):
+        from random import choices
+        from random import randint
+
         result = []
         
         result_append=result.append
@@ -144,14 +150,15 @@ class Node:
             auxwalls.pop(chos[0])
             result_append(Node(None,localstate,dict.fromkeys(auxwalls,-1),0,"",0,localsize))
         for _ in range(len(localwalls)*2+1):
-            new = (random.randint(1,localsize -2), random.randint(0,localsize -1))
+            new = (randint(1,localsize -2), randint(0,localsize -1))
             if new not in localwalls:
                 auxwalls = dict(self.walls)
                 auxwalls[new] = -1
                 result_append(Node(None, localstate, auxwalls, 0, "", 0, localsize))
                 break
-        return result if len(result)>0 else [Node(None,localstate,{(random.randint(1,localsize -2),random.randint(0,localsize -1)):-1},0,"",0,localsize)]
+        return result if len(result)>0 else [Node(None,localstate,{(randint(1,localsize -2),randint(0,localsize -1)):-1},0,"",0,localsize)]
 
+    
     def neigbourWalls(self,wall):
         x = wall[0]
         y = wall[1]

@@ -1,6 +1,4 @@
-from Maze import getProblemInstance
-from A_star import a_star as evaluate
-from Node import Node
+
 from random import random
 from random import choices
 from random import randint
@@ -15,6 +13,9 @@ class Population:
         individuals_append=self.individuals.append
 
         if individuals == None:
+            from Maze import getProblemInstance
+            from A_star import a_star as evaluate
+            from Node import Node
             for i in range(populationSize):
                 maze = getProblemInstance(size, seed, i)
                 root = Node(None, None, None, 0, "", 0, size)
@@ -72,6 +73,8 @@ class Population:
         return Population(localsize, localseed, localpopulationSize, localgenerations, localprobCross, localmutationProb,result)
 
     def reEvaluate(self):  # Execute again the A* To update scores
+        from A_star import a_star as evaluate
+        from Node import Node
 
         localindividuals=self.individuals
         localsize=self.size

@@ -1,4 +1,4 @@
-import sys
+
 import random
 def getProblemInstance(n, seed, nWallsParam):
     """ This method generates a new problem instance. Cells with value 0 means empty cells. Cells with value -1 are walls. Cells with value i (1..n) are occupied by the i-th car.

@@ -1,7 +1,5 @@
-from A_star import a_star as evaluate
 from Population import Population
 from time import time
-from Node import Node
 from copy import deepcopy
 
 
@@ -29,5 +27,6 @@ if __name__ == "__main__":
     aux = GeneticAlgorithm(size, 2020, 20, 50, 0.85, 0.15)
     print("Time : " + str(aux[2]))
     print("Steps : " + str(aux[0]))
+    from Node import Node
     root = Node(None, [(0, 0), (0, size - 1)], aux[1], 0, "", 0, size)
     root.show_maze()

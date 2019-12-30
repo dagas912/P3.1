@@ -1,4 +1,4 @@
-import sys
+
 from HillClimbing import hillClimbing
 from Maze import getProblemInstance
 from Node import Node
