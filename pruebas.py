@@ -7,16 +7,24 @@ from time import time
 #"AStar": a_star,
 
 
-size = 5
-seed = 2019
-nWalls = 10
-
-maze = getProblemInstance(size,seed,nWalls)
+size = 10
+seed = 2020
+nWalls = 25
 
 startTime=time()
+maze = getProblemInstance(size,seed,nWalls)
 root = Node(None, None, None, 0, "", 0, size)
 root.filler(maze)
 root.show_maze()
+
+i=0
+
+for lel in root.generateNeighbours():
+    print(A_star.a_star(lel))
+    i+=1
+    #input()
+
 print(A_star.a_star(root))
 print("Time: {}".format(time()-startTime))
+print("A* Executed: {}".format(i+1))
 

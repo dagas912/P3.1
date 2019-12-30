@@ -4,6 +4,7 @@ from HillClimbing import hillClimbing
 from RandomizedLocalSearch import randomizedLocalSearch
 from Node import Node
 from Maze import getProblemInstance
+from IteratedLocalSearch import iteratedLocalSearch
 
 def assigment3(argv):
     size = int(argv[0])
@@ -28,6 +29,10 @@ def assigment3(argv):
         nWalls=int(argv[4])
         maxIterations=int(argv[5])
         sol=randomizedLocalSearch(size,seed,nWalls,maxIterations)
+    elif algorithm == 'ITERATIVELOCALSEARCH':
+        nWalls=int(argv[4])
+        maxIterations=int(argv[5])
+        sol=iteratedLocalSearch(size,seed,nWalls,maxIterations) if len(argv)==6 else iteratedLocalSearch(size,seed,nWalls,maxIterations,float(argv[6]))
     else:
         error=True
         print("Error selecting algorithm")

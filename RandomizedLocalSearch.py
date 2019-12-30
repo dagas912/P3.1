@@ -9,7 +9,9 @@ def randomizedLocalSearch(size, seed, nWalls, maxIterations):
     startTime=time()
     solution = [-1,None]
     for iteration in range(maxIterations):
-        maze=getProblemInstance(size,seed,nWalls+iteration*randint(1,2))
+        newSeed=seed+randint(0,5000)
+        newNWalls=randint(0,size*(size-3))
+        maze=getProblemInstance(size,newSeed,newNWalls) if iteration > 0 else getProblemInstance(size,seed,nWalls)
 
         x = Node(None, None, None, 0, "", 0, size)
         x.filler(maze)
@@ -17,7 +19,7 @@ def randomizedLocalSearch(size, seed, nWalls, maxIterations):
         y=hillClimbing(x)
         if y[0] > solution[0]:
             solution=y
-        print("{}: {}".format(iteration,y[0]))
+        print("{},{},{}: {}".format(iteration,newSeed,newNWalls,y[0]))
     return solution[:-1]+[time()-startTime]
 
 

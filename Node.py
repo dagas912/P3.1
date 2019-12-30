@@ -1,4 +1,5 @@
 from copy import deepcopy
+from random import choices
 import random
 class Node:
 
@@ -53,42 +54,55 @@ class Node:
         x = self.state[car][0]
         y = self.state[car][1]
         result = []
+        result_append=result.append
         cars = dict()
-        for i in self.state:
+
+        localstate=self.state
+        localwalls=self.walls
+        localdepth=self.depth
+        localcost=self.cost
+        localsize=self.size
+
+        for i in localstate:
             cars[i] = -1
 
-        if y != 0 and (x, y - 1) not in self.walls and (x, y - 1) not in cars:
-            auxcars = self.state[:]
+        if y != 0 and (x, y - 1) not in localwalls and (x, y - 1) not in cars:
+            auxcars = localstate[:]
             auxcars[car] = (x, y - 1)
 
-            result.append(
-                Node(self, auxcars, self.walls, self.depth + 1, str(car + 1) + ": left", self.cost + 1, self.size))
-        if y != (self.size - 1) and (x, y + 1) not in self.walls and (x, y + 1) not in cars:
-            auxcars = self.state[:]
+            result_append(
+                Node(self, auxcars, localwalls, localdepth + 1, "{}: left".format(str(car + 1)), localcost + 1, localsize))
+        if y != (localsize - 1) and (x, y + 1) not in localwalls and (x, y + 1) not in cars:
+            auxcars = localstate[:]
             auxcars[car] = (x, y + 1)
 
-            result.append(
-                Node(self, auxcars, self.walls, self.depth + 1, str(car + 1) + ": right", self.cost + 1, self.size))
-        if x != 0 and (x - 1, y) not in self.walls and (x - 1, y) not in cars:
-            auxcars = self.state[:]
+            result_append(
+                Node(self, auxcars, localwalls, localdepth + 1, "{}: right".format(str(car + 1)), localcost + 1, localsize))
+        if x != 0 and (x - 1, y) not in localwalls and (x - 1, y) not in cars:
+            auxcars = localstate[:]
             auxcars[car] = (x - 1, y)
 
-            result.append(
-                Node(self, auxcars, self.walls, self.depth + 1, str(car + 1) + ": up", self.cost + 1, self.size))
+            result_append(
+                Node(self, auxcars, localwalls, localdepth + 1, "{}: up".format(str(car + 1)), localcost + 1, localsize))
 
-        if x != (self.size - 1) and (x + 1, y) not in self.walls and (x + 1, y) not in cars:
-            auxcars = self.state[:]
+        if x != (localsize - 1) and (x + 1, y) not in localwalls and (x + 1, y) not in cars:
+            auxcars = localstate[:]
             auxcars[car] = (x + 1, y)
 
-            result.append(
-                Node(self, auxcars, self.walls, self.depth + 1, str(car + 1) + ": down", self.cost + 1, self.size))
+            result_append(
+                Node(self, auxcars, localwalls, localdepth + 1,  "{}: down".format(str(car + 1)), localcost + 1, localsize))
         return result
 
     def expand(self):
         result = []
-        for i in range(len(self.state)):
-            for generated in self.movement(i):
-                result.append(generated)
+
+        localstate=self.state
+        movement=self.movement
+        result_append=result.append
+
+        for i in range(len(localstate)):
+            for generated in movement(i):
+                result_append(generated)
         return result
 
     def recoverpath(self):
@@ -102,78 +116,81 @@ class Node:
 
     def testgoal(self):
         returned = True
-        for i in self.state:
-            returned = i[0] == self.size - 1 and returned
+
+        localstate=self.state
+        localsize=self.size
+
+        for i in localstate:
+            returned = i[0] == localsize - 1 and returned
 
         return returned
 
     def generateNeighbours(self):
         result = []
-        #for car in range(len(self.state)):
-        #  result += self.neighbourCar(car)
-        for wall in self.walls.keys():
-            result += self.neigbourWalls(wall)
-        return result if len(result)>0 else [Node(None,self.state,{(1,0):-1},0,"",0,self.size)]
-    """
-    def neighbourCar(self,car):
-        result = []
-        x = self.state[car][0]
-        y = self.state[car][1]
-        cars = self.state
-        if y != 0 and (x, y - 1) not in self.walls and (x, y - 1) not in cars:
-            auxcars = deepcopy(self.state)
-            auxcars[car] = (x, y - 1)
-            auxwalls = deepcopy(self.walls)
+        
+        result_append=result.append
+        wallskeys=self.walls.keys()
+        neigbourWalls=self.neigbourWalls
+        localwalls=self.walls
+        localsize=self.size
+        localstate=self.state
 
-            result.append(
-                Node(None, auxcars, auxwalls, 0, "", 0, self.size))
-        if y != (self.size - 1) and (x, y + 1) not in self.walls and (x, y + 1) not in cars:
-            auxcars = deepcopy(self.state)
-            auxcars[car] = (x, y + 1)
-            auxwalls = deepcopy(self.walls)
-            result.append(
-                Node(None, auxcars, auxwalls, 0, "", 0, self.size))
-        return result"""
+        for wall in wallskeys:
+            result += neigbourWalls(wall)
+        if len(localwalls)>0:
+            auxwalls = list(localwalls)
+            chos = choices(auxwalls)
+            auxwalls=dict(localwalls)
+            auxwalls.pop(chos[0])
+            result_append(Node(None,localstate,dict.fromkeys(auxwalls,-1),0,"",0,localsize))
+        for _ in range(len(localwalls)*2+1):
+            new = (random.randint(1,localsize -2), random.randint(0,localsize -1))
+            if new not in localwalls:
+                auxwalls = dict(self.walls)
+                auxwalls[new] = -1
+                result_append(Node(None, localstate, auxwalls, 0, "", 0, localsize))
+                break
+        return result if len(result)>0 else [Node(None,localstate,{(random.randint(1,localsize -2),random.randint(0,localsize -1)):-1},0,"",0,localsize)]
 
     def neigbourWalls(self,wall):
         x = wall[0]
         y = wall[1]
         result = []
-        if y != 0 and (x, y - 1) not in self.walls:
-            auxcars = list(self.state)
-            auxwalls = dict(self.walls)
+
+        result_append=result.append
+        localwalls=self.walls
+        localstate=self.state
+        localsize=self.size
+
+        if y != 0 and (x, y - 1) not in localwalls:
+            #auxcars = list(self.state)
+            auxwalls = dict(localwalls)
             auxwalls.pop(wall)
             auxwalls[(wall[0]),wall[1] - 1] = -1
-            result.append(Node(None, auxcars, auxwalls, 0, "", 0, self.size))
-        if y != (self.size - 1) and (x, y + 1) not in self.walls:
-            auxcars = list(self.state)
-            auxwalls = dict(self.walls)
+            result_append(Node(None, localstate, auxwalls, 0, "", 0, localsize))
+        if y != (localsize - 1) and (x, y + 1) not in localwalls:
+            #auxcars = list(self.state)
+            auxwalls = dict(localwalls)
             auxwalls.pop(wall)
             auxwalls[(wall[0]),wall[1] + 1] = -1
-            result.append(Node(None, auxcars, auxwalls, 0, "", 0, self.size))
-        if x != 1 and (x - 1, y) not in self.walls:
-            auxcars = list(self.state)
-            auxwalls = dict(self.walls)
+            result_append(Node(None, localstate, auxwalls, 0, "", 0, localsize))
+        if x != 1 and (x - 1, y) not in localwalls:
+            #auxcars = list(self.state)
+            auxwalls = dict(localwalls)
             auxwalls.pop(wall)
             auxwalls[(wall[0]-1),wall[1]] = -1
-            result.append(Node(None, auxcars, auxwalls, 0, "", 0, self.size))
-        if x != (self.size - 2) and (x + 1, y) not in self.walls:
-            auxcars = list(self.state)
-            auxwalls = dict(self.walls)
+            result_append(Node(None, localstate, auxwalls, 0, "", 0, localsize))
+        if x != (localsize - 2) and (x + 1, y) not in localwalls:
+            #auxcars = list(self.state)
+            auxwalls = dict(localwalls)
             auxwalls.pop(wall)
             auxwalls[(wall[0] + 1),wall[1]] = -1
-            result.append(Node(None, auxcars, auxwalls, 0, "", 0, self.size))
-        for _ in range(len(self.walls)*2+1):
-            new = (random.randint(1,self.size -2), random.randint(0,self.size -1))
-            if new not in self.walls:
-                auxcars = list(self.state)
-                auxwalls = dict(self.walls)
-                auxwalls[new] = -1
-                result.append(Node(None, auxcars, auxwalls, 0, "", 0, self.size))
-                break
+            result_append(Node(None, localstate, auxwalls, 0, "", 0, localsize))
 
         return result
     def __hash__(self):
-        return hash(tuple(self.state))
+        localstate=self.state
+        return hash(tuple(localstate))
+
     __slots__ = ['parent', 'state',"walls" ,'depth', 'action', 'cost','size']
 

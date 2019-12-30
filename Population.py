@@ -12,6 +12,7 @@ class Population:
     def __init__(self, size: int, seed: int, populationSize: int, generations: int, probCoross: float, mutationProb: float, individuals=None):
         # List that contains the individuals (idividual represented as mazes distribution) and their score
         self.individuals = []
+        individuals_append=self.individuals.append
 
         if individuals == None:
             for i in range(populationSize):
@@ -19,11 +20,11 @@ class Population:
                 root = Node(None, None, None, 0, "", 0, size)
                 root.filler(maze)
                 # individuals almacena un par de maze con su score de toda la poblacion en su dicionario (Creo que una lista serviria igual)
-                self.individuals.append([evaluate(root), root.walls])
+                individuals_append([evaluate(root), root.walls])
         else:
             self.individuals = individuals
 
-        self.size = size  # TODO Size y Seed no se si seran utiles, pero por ahora se dejan
+        self.size = size  
         self.seed = seed
         self.populationSize = populationSize
         self.generations = generations
@@ -53,7 +54,7 @@ class Population:
     def reEvaluate(self):  # Execute again the A* To update scores
         for index, elem in enumerate(self.individuals):
             root = Node(None, [(0,0),(0,self.size-1)], elem[1], 0, "", 0, self.size)
-            self.individuals[index][0] = evaluate(root)
+            self.individuals[index][0] = evaluate(root) 
 
     def crossover(self):  # Crosses pairs of selected individuals
         score, walls = map(list, zip(*self.individuals))

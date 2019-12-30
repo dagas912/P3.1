@@ -5,22 +5,23 @@ import time
 def a_star(root):
     start_time = time.time()
     open = queue.PriorityQueue()
+    open_put=open.put
+    open_get=open.get
+    open_empty=open.empty
     generated = 1
-    open.put((0,generated,root))
+    open_put((0,generated,root))
     expanded = 0
     explored = dict()
-    while not open.empty() :
-        node = open.get()[2]
+    while not open_empty() :
+        node = open_get()[2]
         if node.__hash__() not in explored:
             if node.testgoal():
-                #(node)
                 total_time = time.time() - start_time
-                return expanded #[len(recovered),node.cost,generated,expanded,total_time]
+                return expanded
             sucessors = node.expand()
             expanded += 1
             for suc in sucessors:
-                open.put((suc.cost + heuristic(suc), generated,suc))
+                open_put((suc.cost + heuristic(suc), generated,suc))
                 generated += 1
             explored[node.__hash__()] = node.state
-    #print("Something went wrong")
     return -1
