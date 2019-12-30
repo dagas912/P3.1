@@ -17,6 +17,7 @@ def randomizedLocalSearch(size, seed, nWalls, maxIterations):
         y=hillClimbing(x)
         if y[0] > solution[0]:
             solution=y
+        print("{}: {}".format(iteration,y[0]))
     return solution[:-1]+[time()-startTime]
 
 

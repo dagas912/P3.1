@@ -28,7 +28,7 @@ def perturbate(node):
                 node.walls.update({(i,j):-1})
             
 if __name__ == "__main__":
-    sol=iteratedLocalSearch(7,2020,0,20)
+    sol=iteratedLocalSearch(10,2020,0,20)
     print("Sol maze:")
     sol[1].show_maze()
     print("Score: {}".format(sol[0]))
