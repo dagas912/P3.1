@@ -17,11 +17,11 @@ def a_star(root):
         if node.__hash__() not in explored:
             if node.testgoal():
                 total_time = time.time() - start_time
-                return expanded
+                return [expanded,node.cost]
             sucessors = node.expand()
             expanded += 1
             for suc in sucessors:
                 open_put((suc.cost + heuristic(suc), generated,suc))
                 generated += 1
             explored[node.__hash__()] = node.state
-    return -1
+    return [-1,-1]

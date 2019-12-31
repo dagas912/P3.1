@@ -53,7 +53,8 @@ def assigment3(argv):
             Node(None, [(0,0),(0,size-1)], sol[1], 0, "", 0, size).show_maze()
         else:
             sol[1].show_maze()
-        print("Score: {}".format(sol[0]))
+        print("Expanded nodes: {}".format(sol[0][0]))
+        print("Cost: {}".format(sol[0][1]))
         print("Time: {}".format(sol[2]))
 
 

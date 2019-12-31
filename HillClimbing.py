@@ -11,10 +11,8 @@ def hillClimbing(initialSolution):
         neighbors = currentSolution.generateNeighbours()
         for neighbor in neighbors:
             score = evaluate(neighbor)
-            if score > currentScore:
+            if score[0] > currentScore[0]:
                 currentSolution = neighbor
                 currentScore = score
                 improves = True
     return [currentScore,currentSolution,time()-startTime]
-
-

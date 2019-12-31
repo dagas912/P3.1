@@ -34,6 +34,7 @@ class Population:
 
     def selectPopulation(self):  # Select some individuals by score
         res1, res2 = map(list, zip(*self.individuals))
+        res1, _ = map(list, zip(*res1))
         result = []
         result_append=result.append
 
@@ -53,6 +54,7 @@ class Population:
 
     def selectPopulationRanked(self):  # Select some individuals by score
         res1, res2 = map(list, zip(*self.individuals))
+        #res1, _ = map(list, zip(*res1))
         total = sum(i for i in range(1, len(res2) + 1))
         res1 = [(len(res2) - i + 1)/ total for i in range(1,len(res2) + 1)]
         result = []
