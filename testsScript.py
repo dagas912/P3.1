@@ -30,7 +30,7 @@ def tests(argv):
                             
                             system("python assigment3.py {} > .\\tests\{}".format(call,filename))
 
-            elif algorithm == 'GENEITC':
+            elif algorithm == 'GENETIC':
                 for lnWalls_nPopulation in nWalls_nPopulation:
                     for lnIterations_nGenerations in nIterations_nGenerations:
                         for lpropPermut_probCross in propPermut_probCross:
@@ -38,7 +38,7 @@ def tests(argv):
                                 for lselect in select:
                                     for lcross in cross:
                                         call = '{} {} -- {} {} {} {} {} -- {} {}'.format(lsize,lseed,algorithm,lnWalls_nPopulation,lnIterations_nGenerations,lpropPermut_probCross,lprobMutation,lselect,lcross)
-                                        filename='{}_{}_{}_{}_{}_{}_{}_{}_{}_{}'.format(algorithm,lsize,lseed,lnWalls_nPopulation,lnIterations_nGenerations,lpropPermut_probCross,lprobMutation,lselect,lcross)
+                                        filename='{}_{}_{}_{}_{}_{}_{}_{}_{}.txt'.format(algorithm,lsize,lseed,lnWalls_nPopulation,lnIterations_nGenerations,lpropPermut_probCross,lprobMutation,lselect,lcross)
                                         system("python assigment3.py {} > .\\tests\{}".format(call,filename))
 
 
