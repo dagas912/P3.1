@@ -1,5 +1,6 @@
 import sys
 from os import system
+from time import time
 
 def tests(argv):
     size = list(map(int,argv[0].split(',')))
@@ -43,4 +44,6 @@ def tests(argv):
 
 
 if __name__ == "__main__":
+    startTime=time()
     tests(sys.argv[1:])
+    print("Tests Time: {}".format(time()-startTime))

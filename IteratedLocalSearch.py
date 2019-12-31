@@ -7,18 +7,20 @@ from HillClimbing import hillClimbing
 def iteratedLocalSearch(size, seed, nWalls, maxIterations,perturbation=0.25):
     startTime = time()
     solution = [[-1,-1],None]
+    evaluated=0
     maze = getProblemInstance(size, seed, nWalls)
     x = Node(None, None, None, 0, "", 0, size)
     x.filler(maze)
     for i in range(int(maxIterations)):
         perturbate(x,perturbation)
         y = hillClimbing(x)
+        evaluated+=y[2]
         if y[0][0] > solution[0][0]:
             solution=y
         x=y[1]
-        print("{}: {}".format(i,y[0]))
+        print("I{};{}".format(i,y[0][0]))
 
-    return solution[:-1]+[time()-startTime]
+    return solution[:-2]+[evaluated,time()-startTime]
 
 def perturbate(node,perturbation):
     localsize=node.size

@@ -7,7 +7,6 @@ def GeneticAlgorithm(size: int, seed: int, populationSize: int, generations: int
     startTime = time()
     P = Population(size, seed, populationSize, generations, probCoross, mutationProb)  # Creates candidates individuals. Generate
     for i in range(generations):
-        print("\nGen {}".format(i))
         _P = deepcopy(P.selectPopulation()) if select==0 else deepcopy(P.selectPopulationRanked())  # Select some individuals by score
         
         _P.crossover() if cross==0 else (_P.crossoverOne() if cross==1 else _P.crossoverTwo()) # Crosses pairs of selected individuals
@@ -16,9 +15,13 @@ def GeneticAlgorithm(size: int, seed: int, populationSize: int, generations: int
         
         _P.reEvaluate()  # Obtains the score of the new individuals
         
-        P = _P.combine(P) # Form the new population (Replace All or Takes the best)
-        
-    return sorted(P.individuals, key=lambda x: x[0],reverse=True)[0]+[time()-startTime]
+        aux=_P.combine(P)
+
+        P = aux[0] # Form the new population (Replace All or Takes the best)
+
+        print("G{}BestIndividual;{}".format(i,aux[1]))
+    
+    return sorted(P.individuals, key=lambda x: x[0],reverse=True)[0]+[populationSize*generations,time()-startTime]
 
 
 if __name__ == "__main__":

@@ -82,8 +82,9 @@ class Population:
         localsize=self.size
 
         for index, elem in enumerate(localindividuals):
-            root = Node(None, [(0,0),(0,localsize-1)], elem[1], 0, "", 0, localsize)
-            localindividuals[index][0] = evaluate(root) 
+            root = Node(None, [(0,0),(0,localsize-1)], elem[1], 0, "", 0, localsize) 
+            localindividuals[index][0] = evaluate(root)
+
 
     def crossover(self):  # Crosses pairs of selected individuals
         score, walls = map(list, zip(*self.individuals))
@@ -173,11 +174,11 @@ class Population:
             tempIndividuals_append([None, indv1])
         localindividuals = tempIndividuals
 
-    def combine(self, prePopulation): # Form the new population (Replace All or Takes the best)
+    def combine(self, prePopulation): # Form the new population (Takes the best)
         aux = prePopulation.individuals + self.individuals
         aux = sorted(aux, key=lambda x: x[0],reverse=True)
         self.individuals = aux[:self.populationSize]
-        return self
+        return [self,aux[0][0][0]]
     
     def copy(self):
         aux = list(map(list,self.individuals))

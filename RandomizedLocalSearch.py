@@ -8,6 +8,7 @@ from time import time
 def randomizedLocalSearch(size, seed, nWalls, maxIterations):
     startTime=time()
     solution = [[-1,-1],None]
+    evaluated=0
     for iteration in range(maxIterations):
         newSeed=seed+randint(0,5000)
         newNWalls=randint(0,size*(size-3))
@@ -17,9 +18,10 @@ def randomizedLocalSearch(size, seed, nWalls, maxIterations):
         x.filler(maze)
 
         y=hillClimbing(x)
+        evaluated+=y[2]
         if y[0][0] > solution[0][0]:
             solution=y
-        print("{},{},{}: {}".format(iteration,newSeed,newNWalls,y[0]))
-    return solution[:-1]+[time()-startTime]
+        print("I{};{}".format(iteration,y[0][0]))
+    return solution[:-2]+[evaluated,time()-startTime]
 
 
