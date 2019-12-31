@@ -10,13 +10,12 @@ from HillClimbing import hillClimbing
 
 size = 15
 seed = 5765
-nWalls = 31
+nWalls = 0
 
 startTime=time()
 maze = getProblemInstance(size,seed,nWalls)
 root = Node(None, None, None, 0, "", 0, size)
 root.filler(maze)
-root.show_maze()
 
 '''i=0
 
@@ -29,7 +28,7 @@ print(A_star.a_star(root))
 print("Time: {}".format(time()-startTime))
 print("A* Executed: {}".format(i+1))'''
 
-score, solution, time = hillClimbing(root)
+score, solution,_, time = hillClimbing(root)
 print("Score: {}".format(score))
 solution.show_maze()
 print("Time: {}".format(time))

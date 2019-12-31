@@ -20,6 +20,7 @@ def GeneticAlgorithm(size: int, seed: int, populationSize: int, generations: int
         P = aux[0] # Form the new population (Replace All or Takes the best)
 
         print("G{}BestIndividual;{}".format(i,aux[1]))
+        print("G{}MeanIndividuals;{}".format(i,aux[2]))
     
     return sorted(P.individuals, key=lambda x: x[0],reverse=True)[0]+[populationSize*generations,time()-startTime]
 

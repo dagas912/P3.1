@@ -178,7 +178,10 @@ class Population:
         aux = prePopulation.individuals + self.individuals
         aux = sorted(aux, key=lambda x: x[0],reverse=True)
         self.individuals = aux[:self.populationSize]
-        return [self,aux[0][0][0]]
+        from numpy import mean
+        r1, _ = map(list, zip(*aux))
+        r1, _ = map(list, zip(*r1))
+        return [self,aux[0][0][0],mean(r1)]
     
     def copy(self):
         aux = list(map(list,self.individuals))
