@@ -8,9 +8,9 @@ from HillClimbing import hillClimbing
 #"AStar": a_star,
 
 
-size = 9
-seed = 2020
-nWalls = 30
+size = 15
+seed = 5765
+nWalls = 31
 
 startTime=time()
 maze = getProblemInstance(size,seed,nWalls)

@@ -10,7 +10,7 @@ def iteratedLocalSearch(size, seed, nWalls, maxIterations,perturbation=0.25):
     maze = getProblemInstance(size, seed, nWalls)
     x = Node(None, None, None, 0, "", 0, size)
     x.filler(maze)
-    for i in range(maxIterations):
+    for i in range(int(maxIterations)):
         perturbate(x,perturbation)
         y = hillClimbing(x)
         if y[0] > solution[0]:
@@ -21,12 +21,16 @@ def iteratedLocalSearch(size, seed, nWalls, maxIterations,perturbation=0.25):
     return solution[:-1]+[time()-startTime]
 
 def perturbate(node,perturbation):
-    for i,j in enumerate(range(node.size)):
-        if i!=0 and i != node.size-1 and random()<perturbation:
-            if (i,j) in node.walls:
-                node.walls.pop((i,j))
+    localsize=node.size
+    localwalls=node.walls
+    localwallspop=node.walls.pop
+    localwallsupdate=node.walls.update
+    for i,j in enumerate(range(localsize)):
+        if i!=0 and i != localsize-1 and random()<perturbation:
+            if (i,j) in localwalls:
+                localwallspop((i,j))
             else:
-                node.walls.update({(i,j):-1})
+                localwallsupdate({(i,j):-1})
             
 if __name__ == "__main__":
     sol=iteratedLocalSearch(9,2020,0,40,0.2)
