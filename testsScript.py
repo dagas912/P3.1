@@ -8,7 +8,9 @@ def tests(argv):
     nWalls_nPopulation = list(map(int,argv[4].split(',')))
     nIterations_nGenerations = [1] if len(argv)<=5 else list(map(int,argv[5].split(',')))
     propPermut_probCross = [0.25] if len(argv)<=6 else list(map(float,argv[6].split(',')))
-    probMutation = [] if len(argv)<=7 else list(map(float,argv[6].split(',')))
+    probMutation = [] if len(argv)<=7 else list(map(float,argv[7].split(',')))
+    select = [0] if len(argv)<=9 else list(map(int,argv[9].split(',')))
+    cross = [0] if len(argv)<=10 else list(map(int,argv[10].split(',')))
 
     for lsize in size:
         for lseed in seed:
@@ -28,7 +30,17 @@ def tests(argv):
                             
                             system("python assigment3.py {} > .\\tests\{}".format(call,filename))
 
-            
+            elif algorithm == 'GENEITC':
+                for lnWalls_nPopulation in nWalls_nPopulation:
+                    for lnIterations_nGenerations in nIterations_nGenerations:
+                        for lpropPermut_probCross in propPermut_probCross:
+                            for lprobMutation in probMutation:
+                                for lselect in select:
+                                    for lcross in cross:
+                                        call = '{} {} -- {} {} {} {} {} -- {} {}'.format(lsize,lseed,algorithm,lnWalls_nPopulation,lnIterations_nGenerations,lpropPermut_probCross,lprobMutation,lselect,lcross)
+                                        filename='{}_{}_{}_{}_{}_{}_{}_{}_{}_{}'.format(algorithm,lsize,lseed,lnWalls_nPopulation,lnIterations_nGenerations,lpropPermut_probCross,lprobMutation,lselect,lcross)
+                                        system("python assigment3.py {} > .\\tests\{}".format(call,filename))
+
 
 if __name__ == "__main__":
     tests(sys.argv[1:])
