@@ -72,11 +72,11 @@ def splitTxt(filename: str, iteraciones: int):
     else:
         ii=0
         ie=-1
-        for i in range(4):
-            if i != 3:
+        for i in range(5):
+            if i != 4:
                 ie=filename[:ie].rindex('_')
             else:
-                ii=filename[:ie-4].rindex('_')
+                ii=filename[:ie].rindex('_')
         filename_start=filename[:ii]
         filename_end=filename[ie:]
 

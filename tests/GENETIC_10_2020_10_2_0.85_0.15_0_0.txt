@@ -1,0 +1,20 @@
+G0BestIndividual;567
+G0MeanIndividuals;544.5
+G1BestIndividual;567
+G1MeanIndividuals;567.0
+A*_Executed;1000
+Expanded_nodes;567
+Cost;23
+Time;1.374190330505371
+Sol_maze;
+1 · · · · · · · · 2 
+· x · · · · · x · · 
+· · · · · x · · · · 
+· · x · · · · · · · 
+· · · x · · · · · x 
+x · · x x · · · · · 
+· · · · · x · · · · 
+· x · · · · · · x · 
+· x · · x · · x · x 
+· · · · · · · · · · 
+

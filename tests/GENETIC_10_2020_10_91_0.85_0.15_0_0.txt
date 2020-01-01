@@ -180,28 +180,10 @@ G89BestIndividual;5305
 G89MeanIndividuals;5213.6
 G90BestIndividual;5305
 G90MeanIndividuals;5255.8
-G91BestIndividual;5305
-G91MeanIndividuals;5000.5
-G92BestIndividual;5305
-G92MeanIndividuals;4774.4
-G93BestIndividual;5305
-G93MeanIndividuals;5223.1
-G94BestIndividual;5305
-G94MeanIndividuals;4733.8
-G95BestIndividual;5305
-G95MeanIndividuals;5305.0
-G96BestIndividual;5305
-G96MeanIndividuals;5289.6
-G97BestIndividual;5305
-G97MeanIndividuals;5297.7
-G98BestIndividual;5305
-G98MeanIndividuals;5294.7
-G99BestIndividual;5305
-G99MeanIndividuals;5278.8
 A*_Executed;1000
 Expanded_nodes;5305
 Cost;38
-Time;243.34789991378784
+Time;204.50126671791077
 Sol_maze;
 1 · · · · · · · · 2 
 x x · · · · · · · · 
