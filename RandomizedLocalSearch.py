@@ -4,6 +4,7 @@ from Maze import getProblemInstance
 from Node import Node
 from random import randint
 from time import time
+from ShowResults import showResult
 
 def randomizedLocalSearch(size, seed, nWalls, maxIterations):
     startTime=time()
@@ -22,6 +23,7 @@ def randomizedLocalSearch(size, seed, nWalls, maxIterations):
         if y[0][0] > solution[0][0]:
             solution=y
         print("I{};{}".format(iteration,y[0][0]))
+        showResult(solution[:-2]+[evaluated,time()-startTime],"RANDOMLOCALSEARCH",size)
     return solution[:-2]+[evaluated,time()-startTime]
 
 

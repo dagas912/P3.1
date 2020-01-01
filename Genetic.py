@@ -1,6 +1,7 @@
 from Population import Population
 from time import time
 from copy import deepcopy
+from ShowResults import showResult
 
 
 def GeneticAlgorithm(size: int, seed: int, populationSize: int, generations: int, probCoross: float, mutationProb: float, select=0, cross=0):
@@ -21,6 +22,7 @@ def GeneticAlgorithm(size: int, seed: int, populationSize: int, generations: int
 
         print("G{}BestIndividual;{}".format(i,aux[1]))
         print("G{}MeanIndividuals;{}".format(i,aux[2]))
+        showResult(sorted(P.individuals, key=lambda x: x[0],reverse=True)[0]+[populationSize*generations,time()-startTime],'GENETIC',size)
     
     return sorted(P.individuals, key=lambda x: x[0],reverse=True)[0]+[populationSize*generations,time()-startTime]
 

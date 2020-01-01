@@ -6,6 +6,7 @@ def assigment3(argv):
     algorithm = argv[3].upper()
 
     error=False
+    sol=None
 
     if algorithm == 'GENETIC':
         from Genetic import GeneticAlgorithm
@@ -19,7 +20,7 @@ def assigment3(argv):
 
         select = int(argv[9]) if len(argv)>9 else 0
         cross = int(argv[10]) if len(argv)>10 else 0
-        sol=GeneticAlgorithm(size,seed,populationSize,generations, probCoross, mutationProb,select,cross)
+        GeneticAlgorithm(size,seed,populationSize,generations, probCoross, mutationProb,select,cross)
     elif algorithm == 'HILLCLIMBING':
         from Node import Node
         from HillClimbing import hillClimbing
@@ -35,30 +36,20 @@ def assigment3(argv):
 
         nWalls=int(argv[4])
         maxIterations=int(argv[5])
-        sol=randomizedLocalSearch(size,seed,nWalls,maxIterations)
+        randomizedLocalSearch(size,seed,nWalls,maxIterations)
     elif algorithm == 'ITERATIVELOCALSEARCH':
         from IteratedLocalSearch import iteratedLocalSearch
 
         nWalls=int(argv[4])
         maxIterations=int(argv[5])
-        sol=iteratedLocalSearch(size,seed,nWalls,maxIterations) if len(argv)==6 else iteratedLocalSearch(size,seed,nWalls,maxIterations,float(argv[6]))
+        iteratedLocalSearch(size,seed,nWalls,maxIterations) if len(argv)==6 else iteratedLocalSearch(size,seed,nWalls,maxIterations,float(argv[6]))
     else:
         error=True
         print("Error selecting algorithm")
 
     if not error:
-        print("A*_Executed;{}".format(sol[2]))
-        print("Expanded_nodes;{}".format(sol[0][0]))
-        print("Cost;{}".format(sol[0][1]))
-        print("Time;{}".format(sol[-1]))
-
-        print("Sol_maze;")
-        if algorithm=='GENETIC':
-            from Node import Node
-            Node(None, [(0,0),(0,size-1)], sol[1], 0, "", 0, size).show_maze()
-        else:
-            sol[1].show_maze()
-
+        from ShowResults import showResult
+        showResult(sol,algorithm,size)
 
 if __name__ == "__main__":
     assigment3(sys.argv[1:])

@@ -1,0 +1,13 @@
+I0;69
+I1;171
+A*_Executed;89
+Expanded_nodes;171
+Cost;13
+Time;0.32381296157836914
+Sol_maze;
+1 · · · 2 
+· x · x · 
+x · · · x 
+· · · · · 
+· · · · · 
+

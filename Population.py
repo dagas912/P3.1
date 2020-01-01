@@ -16,8 +16,8 @@ class Population:
             from Maze import getProblemInstance
             from A_star import a_star as evaluate
             from Node import Node
-            for i in range(populationSize):
-                maze = getProblemInstance(size, seed, i)
+            for i in reversed(range(populationSize)):
+                maze = getProblemInstance(size, seed+1, -1)
                 root = Node(None, None, None, 0, "", 0, size)
                 root.filler(maze)
                 # individuals almacena un par de maze con su score de toda la poblacion en su dicionario (Creo que una lista serviria igual)

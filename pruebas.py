@@ -8,9 +8,9 @@ from HillClimbing import hillClimbing
 #"AStar": a_star,
 
 
-size = 15
-seed = 5765
-nWalls = 0
+size = 5
+seed = 1
+nWalls = 5
 
 startTime=time()
 maze = getProblemInstance(size,seed,nWalls)
@@ -32,3 +32,6 @@ score, solution,_, time = hillClimbing(root)
 print("Score: {}".format(score))
 solution.show_maze()
 print("Time: {}".format(time))
+
+Node(None,[(0,0),(0,size-1)],{(1,3):-1,(1,4):-1,(3,1):-1,(3,2):-1,(3,3):-1,(3,0):-1 },0,"",0,size ).show_maze()
+print(A_star.a_star(Node(None,[(0,0),(0,size-1)],{(1,3):-1,(1,4):-1,(3,1):-1,(3,2):-1,(3,3):-1,(3,0):-1 } ,0,"",0,size )))
